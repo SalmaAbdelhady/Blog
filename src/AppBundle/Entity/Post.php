@@ -65,10 +65,7 @@ class Post extends BaseThread
      */
     protected $category;
 
-    /**
-     * @ORM\Column(type="string", length=20,nullable=true)
-     */
-    protected $image;
+
 
     /**
      * @var
@@ -159,21 +156,6 @@ class Post extends BaseThread
         $this->category = $category;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
 
     /**
      * @return mixed
