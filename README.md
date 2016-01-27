@@ -11,7 +11,7 @@
 - FOSJsRoutingBundle: to expose routing for JS code
 - FOSCommentBundle: for comments implementations 
 - KnpPaginatorBundle: for pagination
-- Gedmo Doctrine2 extensions: for slug generation and on create/update timestamp insertion
+- Gedmo Doctrine2 extensions: for slug generation and on create/update datetime insertion
 
 #Admin user
 - user name : salma
