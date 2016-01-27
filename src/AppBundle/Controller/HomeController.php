@@ -18,13 +18,8 @@ class HomeController extends Controller
         $limit = $request->query->get('limit', 3);
         $page  = $request->query->get('page', 1);
 
-        $query = $this->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:Post')->createQueryBuilder('p');
-        $query = $query->select('p')
-            ->where($query->expr()->eq('p.isPublished', true))
-            ->orderBy('p.updated', 'DESC')
-            ->setMaxResults($limit)
-            ->setFirstResult($page);
-
+        $query = $this->get('doctrine.orm.default_entity_manager')
+            ->getRepository('AppBundle:Post')->getAllPostsQuery($limit,$page);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

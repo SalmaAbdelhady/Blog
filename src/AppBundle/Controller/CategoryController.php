@@ -37,14 +37,8 @@ class CategoryController extends Controller
         $limit = $request->query->get('limit', 6);
         $page  = $request->query->get('page', 1);
 
-        $query = $this->get('doctrine.orm.default_entity_manager')->getRepository('AppBundle:Post')->createQueryBuilder('p');
-        $query = $query->select('p')
-            ->where($query->expr()->eq('p.isPublished', true))
-            ->andWhere($query->expr()->eq('p.category', $category->getId()))
-            ->orderBy('p.updated', 'DESC')
-            ->setMaxResults($limit)
-            ->setFirstResult($page);
-
+        $query = $this->get('doctrine.orm.default_entity_manager')
+            ->getRepository('AppBundle:Post')->getPostsByCategoryQuery($category, $limit, $page);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
