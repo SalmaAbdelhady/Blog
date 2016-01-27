@@ -1,0 +1,18 @@
+{% extends ':Layouts:innerLayout.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block title %}Registration{% endblock %}
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                {% block pageheader %}
+                {% endblock pageheader %}
+            </div>
+
+            <div class="row contact-form">
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

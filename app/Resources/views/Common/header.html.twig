@@ -1,0 +1,44 @@
+<div id="masthead">
+
+    <div id="site-header" role="banner">
+        <div class="container">
+            <div class="row">
+
+                <div id="branding">
+                    <a class="logo" href="{{ path('homepage') }}">Blog</a>
+                </div> <!-- #branding -->
+
+                <nav id="main-menu" role="navigation" itemscope itemtype="http://schema.org/SiteNavigationElement">
+                    <ul class="horizontal-navigation">
+                        <li class="menu-home active" itemprop="url"><a href="{{ path('homepage') }}" title="Home"
+                                                                       itemprop="name">Home</a>
+                        </li>
+
+                        {% if app.user %}
+                            <li class="menu-contact" itemprop="url"><a href="{{ path('fos_user_profile_edit') }}"
+                                                                       title="Contact" itemprop="name">Account</a></li>
+                            <li class="menu-contact" itemprop="url"><a href="{{ path('fos_user_security_logout') }}"
+                                                                       title="Contact" itemprop="name">Logout</a></li>
+
+                        {% else %}
+                            <li class="menu-contact" itemprop="url"><a href="{{ path('fos_user_security_login') }}"
+                                                                       title="Contact" itemprop="name">Login</a></li>
+                            <li class="menu-contact" itemprop="url"><a
+                                        href="{{ path('fos_user_registration_register') }}"
+                                        title="Contact" itemprop="name">Register</a></li>
+
+                        {% endif %}
+
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <li class="menu-contact" itemprop="url"><a href="{{ path('app_backend_dashboard_index') }}"
+                                                                       title="Contact" itemprop="name">Backend</a></li>
+                        {% endif %}
+                    </ul>
+                </nav> <!-- #main-menu -->
+
+            </div> <!-- .row -->
+        </div> <!-- .container -->
+    </div> <!-- #site-header -->
+
+
+</div> <!-- #masthead -->

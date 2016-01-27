@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ app.request.locale }}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/javascript">
+        var __locale = '{{ app.request.locale }}';
+    </script>
+    <Title>
+        {% block title %}{% endblock title %}
+    </Title>
+    {% block favicon %}{%endblock%}
+    {% block meta_tags %}
+    {% endblock %}
+    {% block stylesheets %}
+    {% endblock %}
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    {% block javascriptsHead %}{% endblock %}
+    {% block javascripts_head %}{% endblock %}
+</head>
+
+<body class="home" itemscope itemtype="http://schema.org/WebPage">
+{% block popup %}
+{% endblock %}
+{% block after_body %}{% endblock %}
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+{% block js %}{% endblock %}
+{% block javascriptsFooter %}{% endblock %}
+{% block just_before_body_tag %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "@App/Backend/Layouts/backendInnerLayout.html.twig" %}
+    {% block inner_content %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Add
+                    <small>Post</small>
+                </h1>
+                <div class='page-header'>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-dashboard"></i> <a href="{{ path('app_backend_dashboard_index') }}">Dashboard</a>
+                        </li>
+                        <li class="active">
+                            <i class="fa fa-plus"></i> Post
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                {{ form_errors(form) }}
+                <form action="{{ path('app_backend_post_add') }}"
+                      method="POST" {{ form_enctype(form) }} role="form"
+                      class='form form-horizontal' novalidate="novalidate" style='margin-bottom: 0;'>
+                    {{ form_widget(form) }}
+                    <div class='center-block bottom col-lg-3'>
+                        <button class='btn btn-success' type='submit'>
+                            <i class='icon-plus'></i>
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    {% endblock %}

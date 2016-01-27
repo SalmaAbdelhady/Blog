@@ -1,0 +1,35 @@
+{% extends "::base.html.twig" %}
+{% block favicon %}
+    {#<link rel="shortcut icon" href="{{ asset('images/') }}">#}
+    {#<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('apple-touch-icon-144-precomposed.png') }}">#}
+    {#<link rel="apple-touch-icon-precomposed" sizes="114x114" href="./images/ico/apple-touch-icon-114-precomposed.png">#}
+    {#<link rel="apple-touch-icon-precomposed" sizes="72x72" href="./images/ico/apple-touch-icon-72-precomposed.png">#}
+    {#<link rel="apple-touch-icon-precomposed" href="./images/ico/apple-touch-icon-57-precomposed.png">#}
+{% endblock %}
+{% block javascriptsHead %}
+{% endblock %}
+{% block meta_tags %}
+    {#{{ renderMetaTags({'metas':{'title':'ezbuy.frontend.tagline'|trans} }, app.request.attributes.get('_route') ) }}#}
+{% endblock %}
+{% block stylesheets %}
+    {% stylesheets
+    'bundles/app/backend/css/bootstrap.min.css'
+    'bundles/app/css/font-awesome.min.css'
+    'bundles/app/css/core.css'
+    'bundles/app/css/skins/red.css'
+    'bundles/app/css/custom.css'
+    filter='?uglifycss,cssrewrite' %}
+    <link type="text/css" rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+{% block javascripts %}
+
+    {% javascripts
+    'bundles/app/js/jquery-1.11.2.min.js'
+    'bundles/app/backend/js/bootstrap.min.js'
+    'bundles/app/js/custom.js'
+    filter='?uglifyjs2' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}

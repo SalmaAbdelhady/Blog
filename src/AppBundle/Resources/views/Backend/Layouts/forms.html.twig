@@ -1,0 +1,206 @@
+{# label form#}
+{% block form_label %}
+{% spaceless %}
+    {% if label is not same as(false) %}
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+<label class='' {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_label %}
+
+{# Simple form#}
+{% block form_widget_simple %}
+    {% spaceless %}
+        {% set type = type|default('text') %}
+        <input class="form-control"
+               type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}>
+    {% endspaceless %}
+{% endblock form_widget_simple %}
+
+{# checkbox form #}
+{% block checkbox_widget %}
+    {% spaceless %}
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+            </label>
+        </div>
+    {% endspaceless %}
+{% endblock checkbox_widget %}
+
+{# select form #}
+{% block choice_widget_collapsed %}
+    {% spaceless %}
+        <select class="form-control" {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+            {% if empty_value is not none %}
+                <option value=""{% if required %} disabled="disabled"{% if value is empty %} selected="selected"{% endif %}{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
+            {% endif %}
+            {% if preferred_choices|length > 0 %}
+                {% set options = preferred_choices %}
+                {{ block('choice_widget_options') }}
+                {% if choices|length > 0 and separator is not none %}
+                    <option disabled="disabled">{{ separator }}</option>
+                {% endif %}
+            {% endif %}
+            {% set options = choices %}
+            {{ block('choice_widget_options') }}
+        </select>
+    {% endspaceless %}
+{% endblock choice_widget_collapsed %}
+
+{#form_row #}
+{% block form_row %}
+    {% spaceless %}
+        <div class='form-group {% if errors|length > 0 %}has-error{% endif %} '>
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
+
+{#form_textarea #}
+{% block textarea_widget %}
+    {% spaceless %}
+        <textarea class="form-control" {{ block('widget_attributes') }}>{{ value }}</textarea>
+    {% endspaceless %}
+{% endblock textarea_widget %}
+
+{% block tagInput_widget %}
+    {% spaceless %}
+
+        <input class='input-block-level' id='select2-tags' {{ block('widget_attributes') }}/>
+
+    {% endspaceless %}
+{% endblock %}
+
+{% block thrace_select2_widget %}
+    {% spaceless %}
+        {% set extraConfigs = {
+        '_id': id,
+        'placeholder': configs.placeholder|trans({}, translation_domain),
+        } %}
+        <div>
+            {{ form_widget(form) }}
+            <span class="thrace-select2" data-options="{{ configs|merge(extraConfigs)|json_encode }}"
+                  style="display: none"></span>
+        </div>
+    {% endspaceless %}
+{% endblock thrace_select2_widget %}
+
+{% block choice_widget_expanded %}
+    {% spaceless %}
+        <div {{ block('widget_container_attributes') }}>
+            {% for child in form %}
+                <label class="radio inline">
+                    {{ form_widget(child) }}
+                    <label>{{ child.vars.label }}</label>
+                </label>
+            {% endfor %}
+        </div>
+    {% endspaceless %}
+{% endblock choice_widget_expanded %}
+
+{% block bootstrap_datetimepicker_widget %}
+    {% spaceless %}
+        <div class='{{ configs.type | default('datetimepicker') }} input-append'>
+            <input class='input-medium' data-format='{{ configs.dateformat }}' {{ block('widget_attributes') }}
+                   type='text'>
+    <span class='add-on'>
+        <i data-date-icon='icon-calendar' data-time-icon='icon-time'></i>
+    </span>
+        </div>
+    {% endspaceless %}
+{% endblock bootstrap_datetimepicker_widget %}
+{% block ajax_uploader_widget %}
+    {% spaceless %}
+        <input
+                class="ajax-uploader"
+                type="file"
+                name="files[{{ configs.setName }}]"
+                {{ block('widget_attributes') }}
+                data-setname="{{ configs.setName }}"
+                data-paramname="{{ configs.paramName }}"
+                data-url="{{ configs.url }}"
+                data-uploadfolder="{{ configs.uploadFolder }}"
+                data-entity="{{ configs.entity }}"
+                data-options="{{ configs|merge({'id': id})|json_encode }}" {% if configs.multiple %}
+            multiple="multiple"{% endif %} >
+        <input type="hidden" name="paramName" id="paramName" value="{{ configs.paramName }}"/>
+        <input type="hidden" name="userId" id="userId" value="{{ app.user.customer.id }}"/>
+        <input type="hidden" name="entityId" id="entityId" class="entityId" value=""/>
+        <input type="hidden" {{ block('widget_attributes') }} />
+        <div class="dropzone" data-inputid="{{ id }}" id="dropzone_{{ configs.setName }}">
+            <div class="pull-left">
+                <table role="presentation" class="table table-striped">
+                    <tbody class="files"></tbody>
+                </table>
+            </div>
+            <div class="uploaded_images"></div>
+            <div id="submit"></div>
+        </div>
+        <br/>
+        <br/>
+    {% endspaceless %}
+{% endblock ajax_uploader_widget %}
+{#Range date time picker widget#}
+{% block range_datetime_picker_widget %}
+    {% spaceless %}
+        {{ form_widget(form.children.input_from) }}
+        {{ form_widget(form.children.input_to) }}
+        <div class="controls">
+            <input type="text" value="All Time" class="item-date-range-picker"
+                   data-options="{{ configs|merge({'id': id})|json_encode }}"/>
+
+        <span class='add-on item-date-range-picker'>
+            <i class='icon-calendar'></i>
+          </span>
+        </div>
+    {% endspaceless %}
+{% endblock range_datetime_picker_widget %}
+{% block form_errors %}
+          {% if errors|length > 0 %}
+              {% for error in errors %}
+                  <p class="help-block alert-error"> {{ error.message }} </p>
+              {% endfor %}
+          {% endif %}
+{% endblock form_errors %}
+{% block media_upload_widget %}
+    <div class="span6 box">
+        <div class="box-header">{{ form_label(form) }}</div>
+        <div class="box-content imageBox" style="text-align: center;">
+            {{ form_widget(form) }}
+            {% if form.vars.value is defined and form.vars.value !='' %}
+                <div class="edit_hover_class">
+                    {# <img
+                          src="{{ getImageById(form.vars.value) | default(asset('bundles/edfa3lymedia/images/startupload.png')) }}"
+                          alt="Upload Image"/>#}
+                    <a class="btn mediaPop" href=""
+                       data-hidden="{{ form.vars.id }}">
+                        {{ form.vars.id }}
+                        <i class="icon-pencil"> change</i>
+                    </a>
+                </div>
+            {% else %}
+                <div>
+                    <a class="btn mediaPop" href=""
+                       data-hidden="{{ form.vars.id }}">
+                        {{ form.vars.id }}
+                        <img
+                                src=""
+                                alt="Upload Image"/>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,52 @@
+{% extends "@App/Backend/Layouts/backendAssetsLayout.html.twig" %}
+{% if form is defined %}
+    {% form_theme form '@App/Backend/Layouts/forms.html.twig' %}
+{% endif %}
+{% block body %}
+    <div id="wrapper">
+        {% block header %}
+            {% include '@App/Backend/Layouts/backendHeader.html.twig' %}
+        {% endblock %}
+        {% block content %}
+            <div id="page-wrapper">
+                <div class="container-fluid">
+                    {% block flashMessages %}
+                        {% for flashMessage in app.session.flashbag.get('error') %}
+                            <div class="row-fluid">
+                                <div class="alert alert-error">
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    <h4><i class="icon-info-sign"></i> Error</h4>
+                                    <small>{{ flashMessage }}</small>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        {% for flashMessage in app.session.flashbag.get('notice') %}
+                            <div class="row-fluid">
+                                <div class="alert alert-notice">
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    <h4><i class="icon-info-sign"></i> Notice</h4>
+                                    <small>{{ flashMessage }}</small>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+                        {% for flashMessage in app.session.flashbag.get('success') %}
+                            <div class="row-fluid">
+                                <div class="alert alert-success">
+                                    <a class="close" data-dismiss="alert" href="#">×</a>
+                                    <h4><i class="icon-info-sign"></i> success</h4>
+                                    <small>{{ flashMessage }}</small>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endblock %}
+
+                    {% block inner_content %}{% endblock %}
+                </div>
+            </div>
+
+        {% endblock %}
+    </div>
+{% endblock %}

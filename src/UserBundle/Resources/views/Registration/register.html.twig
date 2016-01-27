@@ -1,0 +1,31 @@
+{% extends "@User/layout.html.twig" %}
+
+{% block pageheader %}
+
+    <div class="col-xs-12">
+        <div class="breadcrumb-holder">
+            <ol class="breadcrumb">
+                <li><a href="{{ path('homepage') }}">Home</a></li>
+                <li class="active"><a href="#">Register</a></li>
+
+            </ol>
+        </div>
+    </div>
+
+{% endblock pageheader %}
+{% block fos_user_content %}
+    <div class="col-lg-12">
+        <div class="col-lg-6">
+            <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST"
+                  class="fos_user_registration_register">
+                {{ form_widget(form) }}
+                <div class="margin-top-30">
+                    <input class="button blue" type="submit" value="Submit Now"/>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock fos_user_content %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

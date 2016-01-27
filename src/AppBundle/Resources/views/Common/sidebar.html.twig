@@ -1,0 +1,26 @@
+<div class="one-quarter-block" role="complementary">
+    <div class="sidebar">
+
+        <div class="widget">
+            <h3 class="widget-title">Categories</h3>
+            <ul class="list-group">
+                {% set categories = getBlogCategories() %}
+                {% for cat in categories %}
+                    <li><a href="{{ path('app_category_index',{'id':cat.id}) }}">{{ cat.name }}</a>
+                        {% if cat.children %}
+                            <ul>
+                                {% for subCat in cat.children %}
+                                    <li>
+                                        <a href="{{ path('app_category_index',{'id':subCat.id}) }}">{{ subCat.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div> <!-- .widget -->
+
+
+    </div> <!-- .sidebar -->
+</div> <!-- .one-quarter-block -->

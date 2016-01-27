@@ -1,0 +1,21 @@
+{% extends ":Layouts:innerLayout.html.twig" %}
+{% block title %}Homepage :: Blog {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="three-quarters-block">
+                    <div class="content">
+                        {% include "@App/Common/posts.html.twig" %}
+                    </div> <!-- .content -->
+                </div> <!-- .three-quarters-block -->
+
+                {% include "AppBundle:Common:sidebar.html.twig" %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

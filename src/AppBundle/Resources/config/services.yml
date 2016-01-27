@@ -1,0 +1,21 @@
+parameters:
+#    felkosha.app.example.class: FelKosha\AppBundle\Example
+
+services:
+#    felkosha.app.example:
+#        class: %felkosha.app.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+#        calls:
+#            - [setService, [@service_id]]
+#        tags:
+#            - { name: twig.extension }
+#            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+      api_helper:
+        class: AppBundle\Services\APIHelper
+
+      blog_extension:
+        class: AppBundle\Twig\Extension\BlogExtension
+        arguments: ["@doctrine.orm.default_entity_manager"]
+        tags:
+            - { name: twig.extension }

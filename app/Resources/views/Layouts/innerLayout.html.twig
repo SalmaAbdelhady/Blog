@@ -1,0 +1,37 @@
+{% extends ":Layouts:assetsLayout.html.twig" %}
+{% block meta_tags %}
+    {#{{renderMetaTags({'metas':{'title':'ezbuy.frontend.tagline'|trans} }, app.request.attributes.get('_route') ) }}#}
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+    filter='?uglifycss,cssrewrite' %}
+    <link type="text/css" rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+
+
+    {% block header %}
+        {% include ':Common:header.html.twig' %}
+    {% endblock %}
+    {% block fixedMenu %}
+    {% endblock %}
+    {% block flashmessage %}
+        {% include ':Common:flashMessage.html.twig' %}
+    {% endblock flashmessage %}
+
+    <main id="content" role="main">
+        {% block content %}
+        {% endblock %}
+    </main> <!-- #content -->
+
+    {% block footer %}
+        <footer id="footer-black" class="widefat">
+            {% include ':Common:footer.html.twig' %}
+        </footer><!-- /#footer -->
+
+    {% endblock %}
+
+{% endblock %}

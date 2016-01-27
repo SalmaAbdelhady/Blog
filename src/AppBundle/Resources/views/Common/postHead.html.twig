@@ -1,0 +1,20 @@
+<div class="entry-meta">
+
+										<span class="post-date">
+											<i class="fa fa-clock-o fa-fw"></i> <span
+                                                    class="updated">{{ post.updated|date }}</span>
+										</span> <!-- .post-date -->
+
+										<span class="post-author">
+											<i class="fa fa-user fa-fw"></i> Written by <span
+                                                    class="vcard">{{ post.author.username }}</span>
+										</span> <!-- .post-author -->
+
+										<span class="post-categories">
+											<i class="fa fa-folder fa-fw"></i>
+                                            <a href="{{ path('app_category_index',{'id':post.category.id}) }}"
+                                               rel="tag">{{ post.category.name }}</a>
+										</span> <!-- .post-categories -->
+
+
+</div>

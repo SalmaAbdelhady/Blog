@@ -1,0 +1,85 @@
+{% extends "@App/Backend/Layouts/backendInnerLayout.html.twig" %}
+    {% block inner_content %}
+        <div class="row">
+            <div class='page-header'>
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i> <a
+                                href="{{ path('app_backend_dashboard_index') }}">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-list"></i> Posts
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Published</th>
+                    <th>Commentable</th>
+                    <th>No. of Comments</th>
+                    <th>last updated</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for d in data %}
+                    <tr>
+                        <td>{{ d.title }}</td>
+                        <td>{{ d.author.username }}</td>
+                        <td>
+                            {% if d.isPublished %}
+                                <span class="btn-xs btn-success">Published</span>
+                            {% else %}
+                                <span class="btn-xs btn-danger">Not Published</span>
+                            {% endif %}
+
+                        </td>
+                        <td>
+                            {% if d.isCommentable %}
+                                <span class="btn-xs btn-success">Yes</span>
+                            {% else %}
+                                <span class="btn-xs btn-danger">No</span>
+                            {% endif %}
+
+                        </td>
+                        <td>{{ d.numComments }}</td>
+                        <td>{{ d.created |date }}</td>
+                        <td>{{ d.updated |date }}</td>
+                        <td>
+                            <a data-toggle="tooltip" title="View Post" class="btn btn-info"
+                               href="{{ path('app_post_view_slug',{'slug':d.slug}) }}"><i
+                                        class="glyphicon glyphicon-search"></i></a>
+                            <a data-toggle="tooltip" title="Edit Post" class="btn btn-success"
+                               href="{{ path('app_backend_post_edit',{'id':d.id}) }}"><i
+                                        class="glyphicon glyphicon-edit"></i></a>
+                            <a data-toggle="tooltip" title="Delete Post" class="btn btn-danger"
+                               href="{{ path('app_backend_post_delete',{'id':d.id}) }}"><i
+                                        class="glyphicon glyphicon-remove"></i></a>
+                        </td>
+
+
+                    </tr>
+                {% endfor %}
+
+
+                </tbody>
+            </table>
+            {{ knp_pagination_render(data) }}
+        </div>
+    {% endblock inner_content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+{% endblock %}
